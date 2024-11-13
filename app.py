@@ -64,7 +64,7 @@ if options == "Home" :
 elif options == "About Us" :
      st.title("About Us")
      st.write("# Jeremie Diaz, AI Bot Developer")
-     st.image('images/photo-me.jpg', use_container_width=True)
+     st.image('images/photo-me1.jpg', use_container_width=True)
      st.write("## Let's connect!")
      st.text("Connect with me via Linkedin : https://www.linkedin.com/in/jandiaz/")
      st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
