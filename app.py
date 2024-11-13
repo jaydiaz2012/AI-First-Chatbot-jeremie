@@ -130,7 +130,7 @@ if openai.api_key and (openai.api_key.startswith('sk-') and len(openai.api_key) 
     item_type = st.selectbox("Select the risk:", ["weather hazards", "security risks", "traffic", "political instability"])
     delivery_date = st.selectbox("Select days of delivery:", ["1 day", "3 days", "7 days", "other"])
     
-    if st.button("Get Recommendation"):
+    if st.button("Get Risk Assessment"):
         # Load the dataset and create embeddings only when the button is pressed
         dataframed = pd.read_csv('https://raw.githubusercontent.com/jaydiaz2012/AI-First-Chatbot-jeremie/refs/heads/main/delivery_logistics_data.csv')
         dataframed['combined'] = dataframed.apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
