@@ -108,15 +108,101 @@ Example 2: User 2: Hi, I’m planning a shipment from Davao City to Cebu City wi
 Example 3: User 3: Hi, I’m planning a transport route from La Trinidad, Benguet to Tarlac City next week for a high-value electronics shipment. Could you provide a risk overview for that route and let me know of any potential concerns or higher-risk areas? I’d also like to be alerted if any new risks come up closer to the shipping date.
 
 """
-            struct = [{'role': 'system', 'content': System_Prompt}]
-            struct.append({"role": "user", "content": user_question})
+#            struct = [{'role': 'system', 'content': System_Prompt}]
+#            struct.append({"role": "user", "content": user_question})
+#    
+#            try:
+#                chat = openai.ChatCompletion.create(model="gpt-4o-mini", messages=struct)
+#                response = chat.choices[0].message.content
+#                st.success("Here's what RouteX says:")
+#                st.write(response)
+#            except Exception as e:
+#                st.error(f"An error occurred while getting the response: {str(e)}")
+#        else:
+#            st.warning("Please enter a question before submitting!")
+
+
+if api_key and (api_key.startswith('sk-') and len(api_key) == 164):
+    st.title("RouteX: Risk Assessor Assistant")
     
-            try:
-                chat = openai.ChatCompletion.create(model="gpt-4o-mini", messages=struct)
-                response = chat.choices[0].message.content
-                st.success("Here's what RouteX says:")
-                st.write(response)
-            except Exception as e:
-                st.error(f"An error occurred while getting the response: {str(e)}")
-        else:
-            st.warning("Please enter a question before submitting!")
+    origin = st.text_input("Enter the source location of delivery (city):")
+    destination = st.text_input("Enter the destination location (city):")
+    item_type = st.selectbox("Select the risk:", ["weather hazards", "security risks", "traffic", "political instability"])
+    delivery_date = st.selectbox("Select days of delivery:", ["1 day", "3 days", "7 days", "other"])
+    
+    if st.button("Get Recommendation"):
+        # Load the dataset and create embeddings only when the button is pressed
+        dataframed = pd.read_csv('https://raw.githubusercontent.com/jaydiaz2012/AI-First-Chatbot-jeremie/refs/heads/main/delivery_logistics_data.csv')
+        dataframed['combined'] = dataframed.apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
+        documents = dataframed['combined'].tolist()
+
+        # Generate embeddings for the documents
+        embeddings = [get_embedding(doc, engine="text-embedding-3-small") for doc in documents]
+        embedding_dim = len(embeddings[0])
+        embeddings_np = np.array(embeddings).astype('float32')
+
+        # Create a FAISS index for efficient similarity search
+        index = faiss.IndexFlatL2(embedding_dim)
+        index.add(embeddings_np)
+
+        user_message = f"Hello, I need a quick risk assessment for a {delivery_date} delivery from {origin} to {destination}. The cargo is important, so {item_type} could be a problem. Could you assess potential risks and suggest alternative routes if necessary?"
+        # Generate embedding for the user message
+        query_embedding = get_embedding(user_message, engine='text-embedding-3-small')
+        query_embedding_np = np.array([query_embedding]).astype('float32')
+
+        # Search for similar documents
+        _, indices = index.search(query_embedding_np, 2)
+        retrieved_docs = [documents[i] for i in indices[0]]
+        context = ' '.join(retrieved_docs)
+
+        # Prepare structured prompt
+        structured_prompt = f"Context:\n{context}\n\nQuery:\n{user_message}\n\nResponse:"
+
+        # Call OpenAI API
+        chat = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "system", "content": System_Prompt}] + [{"role": "user", "content": structured_prompt}],
+            temperature=0.5,
+            max_tokens=1500,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        
+        # Get response
+        response = chat.choices[0].message.content
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
+        # Display the response
+        st.write(response)
+
+    # Follow-up question input
+    if st.session_state.messages:
+        follow_up_question = st.text_input("Ask a follow-up question:")
+        if st.button("Submit Follow-Up"):
+            # Append the user's follow-up question to the messages
+            st.session_state.messages.append({"role": "user", "content": follow_up_question})
+
+            # Prepare the structured prompt for the follow-up question
+            follow_up_context = ' '.join([msg['content'] for msg in st.session_state.messages if msg['role'] == 'assistant'])
+            follow_up_prompt = f"Context:\n{follow_up_context}\n\nQuery:\n{follow_up_question}\n\nResponse:"
+
+            # Call OpenAI API for the follow-up question
+            follow_up_chat = openai.ChatCompletion.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "system", "content": System_Prompt}] + [{"role": "user", "content": follow_up_prompt}],
+                temperature=0.5,
+                max_tokens=1500,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+
+            # Get response for the follow-up question
+            follow_up_response = follow_up_chat.choices[0].message.content
+            st.session_state.messages.append({"role": "assistant", "content": follow_up_response})
+
+            # Display the follow-up response
+            st.write(follow_up_response)
+else:
+    st.warning("Please enter your OpenAI API key to use the chatbot.")
