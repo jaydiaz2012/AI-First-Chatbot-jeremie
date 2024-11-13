@@ -23,9 +23,8 @@ st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", 
 
 with st.sidebar :
     st.image('images/pinmap.jpg')
-    api_key = st.text_input('Enter OpenAI API token:', type='password')
-    if not (api_key.startswith('sk-') and len(api_key)==164):
-        openai.api_key = api.key
+    openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
     else:
         st.success('Proceed to entering your prompt message!', icon='👉')
@@ -123,7 +122,7 @@ Example 3: User 3: Hi, I’m planning a transport route from La Trinidad, Bengue
 #            st.warning("Please enter a question before submitting!")
 
 
-if api_key and (api_key.startswith('sk-') and len(api_key) == 164):
+if openai.api_key and (openai.api_key.startswith('sk-') and len(openai.api_key) == 164):
     st.title("RouteX: Risk Assessor Assistant")
     
     origin = st.text_input("Enter the source location of delivery (city):")
