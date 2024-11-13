@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="", layout="wide")
 
 with st.sidebar :
-    st.image('images/White_AI Republic.png')
+    st.image('images/pinmap.jpg')
     openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
     if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
@@ -64,7 +64,7 @@ if options == "Home" :
 elif options == "About Us" :
      st.title("About Us")
      st.write("# [Name]")
-     st.image('images/Meer.png')
+     st.image('images/photo-me.jpg')
      st.write("## [Title]")
      st.text("Connect with me via Linkedin : [LinkedIn Link]")
      st.text("Other Accounts and Business Contacts")
