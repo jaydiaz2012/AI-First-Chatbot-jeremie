@@ -23,8 +23,9 @@ st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", 
 
 with st.sidebar :
     st.image('images/pinmap.jpg')
-    openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
-    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
+    api_key = st.text_input('Enter OpenAI API token:', type='password')
+    if not (api_key.startswith('sk-') and len(api_key)==164):
+        openai.api_key = api.key
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
     else:
         st.success('Proceed to entering your prompt message!', icon='👉')
