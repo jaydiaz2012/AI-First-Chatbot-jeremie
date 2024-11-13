@@ -19,7 +19,7 @@ from streamlit_extras.mention import mention
 
 warnings.filterwarnings("ignore")
 
-st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="", layout="wide")
+st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
 
 with st.sidebar :
     st.image('images/pinmap.jpg')
@@ -56,18 +56,18 @@ if 'chat_session' not in st.session_state:
 # Options : Home
 if options == "Home" :
 
-   st.title("This is the Home Page!")
-   st.write("Intorduce Your Chatbot!")
-   st.write("What is their Purpose?")
-   st.write("What inspired you to make [Chatbot Name]?")
+   st.title("Ask RouteX!")
+   st.write("RouteX evaluate potential risks based on factors like weather, road conditions, traffic, political stability, and security concerns on various routes when making deliveries. After assessing risks, RouteX could recommend alternative, safer routes if high-risk areas are detected!")
+   st.write("In logistics, you don't control the weather, certain conditions, and overall circumstances that will hinder your deliveries to the point of affecting damage to the deliveries to unsuccessful deliveries. RouteX eliminates those problems by telling you the risks.")
+   st.write("\n")
    
 elif options == "About Us" :
      st.title("About Us")
-     st.write("# [Name]")
-     st.image('images/photo-me.jpg')
-     st.write("## [Title]")
-     st.text("Connect with me via Linkedin : [LinkedIn Link]")
-     st.text("Other Accounts and Business Contacts")
+     st.write("# Jeremie Diaz, AI Bot Developer")
+     st.image('images/photo-me.jpg', width=None)
+     st.write("## Let's connect!")
+     st.text("Connect with me via Linkedin : https://www.linkedin.com/in/jandiaz/")
+     st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
      st.write("\n")
 
 # Options : Model
