@@ -148,7 +148,6 @@ if openai.api_key and (openai.api_key.startswith('sk-') and len(openai.api_key) 
     origin = st.text_input("Enter the source location of delivery (city):")
     destination = st.text_input("Enter the destination location (city):")
     item_type = st.selectbox("Select the risk:", ["weather hazards", "security risks", "traffic", "political instability"])
-    delivery_date = st.selectbox("Select days of delivery:", ["1 day", "4 days", "7 days", "Other"])
     
     if st.button("Get Risk Assessment"):
         # Load the dataset and create embeddings only when the button is pressed
@@ -165,7 +164,7 @@ if openai.api_key and (openai.api_key.startswith('sk-') and len(openai.api_key) 
         index = faiss.IndexFlatL2(embedding_dim)
         index.add(embeddings_np)
 
-        user_message = f"Hello, I need a quick risk assessment for a {delivery_date} delivery from {origin} to {destination}. The cargo is important, so {item_type} could be a problem. Could you assess potential risks and suggest alternative routes if necessary?"
+        user_message = f"Hello, I need a quick risk assessment for a delivery from {origin} to {destination}. The cargo is important, so {item_type} could be a problem. Could you assess potential risks and suggest alternative routes if necessary?"
         # Generate embedding for the user message
         query_embedding = get_embedding(user_message, engine='text-embedding-3-small')
         query_embedding_np = np.array([query_embedding]).astype('float32')
