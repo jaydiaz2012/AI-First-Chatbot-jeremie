@@ -79,65 +79,42 @@ class GoogleMAP:
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
 # Sidebar for navigation and API key input
 api_key = st.sidebar.text_input("Enter your OpenAI API Key:", type="password")
-rx = RouteGuru(api_key=api_key)
+rg = routex(api_key=api_key)
 
-with st.sidebar :
+with st.sidebar:
     st.image('images/pinmap.jpg')
-    openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
-    rx = routex(openai.api_key = openai.api_key)
-    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
-        st.warning('Please enter your OpenAI API token!', icon='⚠️')
+    page = option_menu(
+        "RouteX",
+        ["Home", "About Me", "RouteX"],
+        icons=['house', 'person-circle', 'map'],
+        menu_icon="list",
+        default_index=0,
+    )
+if not api_key:
+    st.warning("Please enter your OpenAI API Key in the sidebar to use the application.")
+
     else:
-        st.success('Proceed to entering your prompt message!', icon='👉')
-    with st.container() :
-        l, m, r = st.columns((1, 3, 1))
-        with l : st.empty()
-        with m : st.empty()
-        with r : st.empty()
-
-    options = option_menu(
-        "Dashboard", 
-        ["Home", "About Us", "RouteX"],
-        icons = ['book', 'globe', 'tools'],
-        menu_icon = "book", 
-        default_index = 0,
-        styles = {
-            "icon" : {"color" : "#dec960", "font-size" : "20px"},
-            "nav-link" : {"font-size" : "17px", "text-align" : "left", "margin" : "5px", "--hover-color" : "#262730"},
-            "nav-link-selected" : {"background-color" : "#262730"}          
-        })
-
-
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
-
-if 'chat_session' not in st.session_state:
-    st.session_state.chat_session = None  # Placeholder for your chat session initialization
-
-# Options : Home
-if options == "Home" :
-
-   st.title("Ask RouteX!")
-   st.write("RouteX evaluate potential risks based on factors like weather, road conditions, traffic, political stability, and security concerns on various routes when making deliveries. After assessing risks, RouteX could recommend alternative, safer routes if high-risk areas are detected!")
-   st.write("In logistics, you don't control the weather, certain conditions, and overall circumstances that will hinder your deliveries to the point of affecting damage to the deliveries to unsuccessful deliveries. RouteX eliminates those problems by telling you the risks.")
-   st.write("\n")
+    if page == "Home" :
+        st.title("Ask RouteX!")
+        st.write("RouteX evaluate potential risks based on factors like weather, road conditions, traffic, political stability, and security concerns on various routes when making deliveries. After assessing risks, RouteX could recommend alternative, safer routes if high-risk areas are detected!")
+        st.write("In logistics, you don't control the weather, certain conditions, and overall circumstances that will hinder your deliveries to the point of affecting damage to the deliveries to unsuccessful deliveries. RouteX eliminates those problems by telling you the risks.")
+        st.write("\n")
    
-elif options == "About Us" :
-     st.title("About Us")
-     st.write("# Jeremie Diaz, AI Bot Developer")
-     st.image('images/photo-me1.jpg', use_container_width=True)
-     st.write("## Let's connect!")
-     st.text("Connect with me via Linkedin : https://www.linkedin.com/in/jandiaz/")
-     st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
-     st.write("\n")
+    elif page == "About Us" :
+        st.title("About Us")
+        st.write("# Jeremie Diaz, AI Bot Developer")
+        st.image('images/photo-me1.jpg', use_container_width=True)
+        st.write("## Let's connect!")
+        st.text("Connect with me via Linkedin : https://www.linkedin.com/in/jandiaz/")
+        st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
+        st.write("\n")
 
-# Options : Model
-elif options == "RouteX":
-    st.title('Ask RouteX!')
-    st.header('RouteX: Your Delivery Route Expert!')
-    
-    deliveries = []
-
+    elif page == "RouteX":
+        st.title('Ask RouteX!')
+        st.header('RouteX: Your Delivery Route Expert!')
+        
+        deliveries = []
+        
         if "click_count" not in st.session_state:
             st.session_state.click_count = 1
 
