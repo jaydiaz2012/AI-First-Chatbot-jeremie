@@ -79,7 +79,7 @@ class GoogleMAP:
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
 # Sidebar for navigation and API key input
 api_key = st.sidebar.text_input("Enter your OpenAI API Key:", type="password")
-rg = RouteGuru(api_key=api_key)
+rx = RouteGuru(api_key=api_key)
 
 with st.sidebar :
     st.image('images/pinmap.jpg')
@@ -156,8 +156,8 @@ elif options == "RouteX":
     
     struct = []
         if st.button("Recommend Route!"):
-            structured_prompt = rg.get_structured_prompt(deliveries=deliveries, origin=origin_location)
-            resp = rg.route_recommendation(structured_prompt)
+            structured_prompt = rx.get_structured_prompt(deliveries=deliveries, origin=origin_location)
+            resp = rx.route_recommendation(structured_prompt)
             st.session_state.messages.append({"role": "assistant", "content": resp["response"]})
             struct = resp["struct"]
 
@@ -192,6 +192,6 @@ elif options == "RouteX":
                  with st.chat_message("user"):
                      st.markdown(prompt)
                 with st.chat_message("assistant"):
-                    response = st.write_stream(rg.route_guru_chat(struct, st.session_state.messages))
+                    response = st.write_stream(rx.routex_chat(struct, st.session_state.messages))
                 # Add assistant response to chat history
                 st.session_state.messages.append({"role": "assistant", "content": response})
