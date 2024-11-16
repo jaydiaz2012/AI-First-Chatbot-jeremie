@@ -11,7 +11,7 @@ class RouteGuru:
         self.api_key = api_key
 
     def get_structured_prompt(self, deliveries, origin):
-        df = pd.read_csv('https://raw.githubusercontent.com/jaydiaz2012/AI-First-Chatbot-jeremie/refs/heads/main/delivery_logistics1_final.csv', nrows=20)
+        df = pd.read_csv('https://raw.githubusercontent.com/jaydiaz2012/AI-First-Chatbot-jeremie/refs/heads/main/amazon_delivery.csv', nrows=20)
         df["combined"] = df.apply(lambda x: ' '.join(x.values.astype(str)), axis=1)
         documents = df['combined'].tolist()
         embeddings = [get_embedding(doc, engine = "text-embedding-3-small") for doc in documents]
@@ -50,9 +50,9 @@ class RouteGuru:
         ---
 
         ### **2. Instruction**  
-        - **Goal**: Given a list of deliveries, RouteX determines the most **efficient route**, enriched with {customer_city} and {order_city} for all locations.  
+        - **Goal**: Given a list of deliveries, RouteX determines the most **efficient route**, enriched with longitude and lattitude for all locations where the order was placed and for all locations for delivering the order.  
         - **Main Tasks**:  
-        - **Retrieve** delivery details, including {product_name}, {product_price}, {shipping_date}, and {shipping_mode}.  
+        - **Retrieve** delivery details, including delivery details, including estimated delivery windows, and factors affecting the delivery which included weather and traffic.   
         - **Geocode** addresses to their corresponding latitude and longitude.  
         - **Compute** the optimal route, considering geolocation and delivery constraints.  
         - **Communicate** the route with clear directions and list geolocation points for origin, destination, and waypoints at the end of the response.  
@@ -115,7 +115,7 @@ class RouteGuru:
             "struct": struct
         }
 
-    def route_guru_chat(self, struct, message):
+    def routex_chat(self, struct, message):
         messages = [{"role": m["role"], "content": m["content"]} for m in message]
         messages = messages + struct
         chat = openai.ChatCompletion.create(model="gpt-4o-mini", messages = messages, stream=True)
