@@ -79,7 +79,7 @@ class GoogleMAP:
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
 # Sidebar for navigation and API key input
 api_key = st.sidebar.text_input("Enter your OpenAI API Key:", type="password")
-rg = routex(api_key=api_key)
+rx = routex(api_key=api_key)
 
 with st.sidebar:
     st.image('images/pinmap.jpg')
