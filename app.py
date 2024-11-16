@@ -170,5 +170,6 @@ else:
                      st.markdown(prompt)
                 with st.chat_message("assistant"):
                     response = st.write_stream(rx.routex_chat(struct, st.session_state.messages))
-                # Add assistant response to chat history
+                
+            # Add assistant response to chat history
                 st.session_state.messages.append({"role": "assistant", "content": response})
