@@ -16,6 +16,7 @@ from openai.embeddings_utils import get_embedding
 import faiss
 import streamlit as st
 import warnings
+from utils.routex import routex
 from streamlit_option_menu import option_menu
 from streamlit_extras.mention import mention
 warnings.filterwarnings("ignore")
@@ -75,26 +76,15 @@ class GoogleMAP:
         else:
             return f"Error: {data['status']}"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
+# Sidebar for navigation and API key input
+api_key = st.sidebar.text_input("Enter your OpenAI API Key:", type="password")
+rg = RouteGuru(api_key=api_key)
 
 with st.sidebar :
     st.image('images/pinmap.jpg')
     openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+    rx = routex(openai.api_key = openai.api_key)
     if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
     else:
@@ -144,6 +134,82 @@ elif options == "About Us" :
 # Options : Model
 elif options == "RouteX":
     st.title('Ask RouteX!')
+    st.header('RouteX: Your Delivery Route Expert!')
+    
+    deliveries = []
+
+        if "click_count" not in st.session_state:
+            st.session_state.click_count = 1
+
+        def add_delivery_input():
+            st.session_state.click_count += 1
+
+        if st.button("➕ Add Delivery Details"):
+            add_delivery_input()
+
+        for i in range(st.session_state.click_count):
+            delivery_address = st.text_input(f"Enter Delivery Address #{i + 1}:")
+            delivery_time_window = st.text_input(f"Enter Delivery Time Window #{i + 1}:")
+            deliveries.append(f"{delivery_address} ({delivery_time_window})")
+            
+        origin_location = st.text_input("Enter the origin location:")
+    
+    struct = []
+        if st.button("Recommend Route!"):
+            structured_prompt = rg.get_structured_prompt(deliveries=deliveries, origin=origin_location)
+            resp = rg.route_recommendation(structured_prompt)
+            st.session_state.messages.append({"role": "assistant", "content": resp["response"]})
+            struct = resp["struct"]
+
+            geo_locations = extract_geolocation(resp["response"])
+            gm = GoogleMAP(key=config('GOOGLE_MAPS_API_KEY'))
+            gm_source = gm.getEmbededMapsSource(
+                origin=geo_locations["origin"],
+                destination=geo_locations["destination"],
+                waypoints="|".join(geo_locations["waypoints"])
+            )
+            # Google Maps iframe embed example
+            iframe_html = f"""
+            <iframe src={gm_source} width="800" height="600"></iframe>
+            """
+
+            # Display the iframe in the Streamlit app
+            components.html(iframe_html, height=600)
+            
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+
+        # Display chat messages from history on app rerun
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
+         if st.session_state.messages:
+             if prompt := st.chat_input("Are there any more questions?"):
+                 # Add user message to chat history
+                 st.session_state.messages.append({"role": "user", "content": prompt})
+                 # Display user message in chat message container
+                 with st.chat_message("user"):
+                     st.markdown(prompt)
+                with st.chat_message("assistant"):
+                    response = st.write_stream(rg.route_guru_chat(struct, st.session_state.messages))
+                # Add assistant response to chat history
+                st.session_state.messages.append({"role": "assistant", "content": response})
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     user_question = st.text_input("What's your route risk question?")
 
     if st.button("Submit"):
