@@ -131,7 +131,7 @@ else:
             
         origin_location = st.text_input("Enter the origin location:")
     
-    struct = []
+        struct = []
         if st.button("Recommend Route!"):
             structured_prompt = rx.get_structured_prompt(deliveries=deliveries, origin=origin_location)
             resp = rx.route_recommendation(structured_prompt)
