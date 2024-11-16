@@ -4,7 +4,7 @@ import faiss
 import pandas as pd
 import numpy as np
 
-class RouteGuru:
+class Route_X:
 
     def __init__(self, api_key:str): 
         openai.api_key = api_key
