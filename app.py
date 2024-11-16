@@ -160,8 +160,8 @@ else:
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
-
-         if st.session_state.messages:
+        
+        if st.session_state.messages:
              if prompt := st.chat_input("Are there any more questions?"):
                  # Add user message to chat history
                  st.session_state.messages.append({"role": "user", "content": prompt})
