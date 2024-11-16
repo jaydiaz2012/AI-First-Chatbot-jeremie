@@ -93,7 +93,7 @@ with st.sidebar:
 if not api_key:
     st.warning("Please enter your OpenAI API Key in the sidebar to use the application.")
 
-    else:
+else:
     if page == "Home" :
         st.title("Ask RouteX!")
         st.write("RouteX evaluate potential risks based on factors like weather, road conditions, traffic, political stability, and security concerns on various routes when making deliveries. After assessing risks, RouteX could recommend alternative, safer routes if high-risk areas are detected!")
