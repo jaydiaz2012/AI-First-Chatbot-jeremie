@@ -16,6 +16,7 @@ from openai.embeddings_utils import get_embedding
 import faiss
 import streamlit as st
 import warnings
+from utils.google_map import GoogleMAP
 from utils.routex import Route_X
 from streamlit_option_menu import option_menu
 from streamlit_extras.mention import mention
