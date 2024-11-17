@@ -67,12 +67,12 @@ else:
         def add_delivery_input():
             st.session_state.click_count += 1
 
-        if st.button("➕ Add Delivery Details"):
+        if st.button("Add Delivery Details"):
             add_delivery_input()
 
         for i in range(st.session_state.click_count):
             delivery_address = st.text_input(f"Enter Delivery Address #{i + 1}:")
-            delivery_time_window = st.text_input(f"Enter Delivery Time Window #{i + 1}:")
+            delivery_time_window = st.text_input(f"Enter Date of Delivery(YYYY-MM-DD) #{i + 1}:")
             deliveries.append(f"{delivery_address} ({delivery_time_window})")
             
         origin_location = st.text_input("Enter the origin location:")
@@ -98,6 +98,9 @@ else:
 
             # Display the iframe in the Streamlit app
             components.html(iframe_html, height=600)
+
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
        
         # Display chat messages from history on app rerun
         for message in st.session_state.messages:
