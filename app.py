@@ -56,8 +56,8 @@ else:
         st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
         st.write("\n")
     
-    elif page == "RouteGuru":
-        st.header("RouteGuru: Your Delivery Route Optimization Assistant")
+    elif page == "RouteX":
+        st.header("RouteX: Your Delivery Route Optimization Assistant")
 
         deliveries = []
 
