@@ -11,7 +11,7 @@ class Route_X:
         self.api_key = api_key
 
     def get_structured_prompt(self, deliveries, origin):
-        df = pd.read_csv('https://raw.githubusercontent.com/jaydiaz2012/AI-First-Chatbot-jeremie/refs/heads/main/order_delivery_dataset.csv')
+        df = pd.read_csv('https://raw.githubusercontent.com/noelabu/AIRepublic_Day4/refs/heads/main/dataset/delivery_data_sample.csv')
         df["combined"] = df.apply(lambda x: ' '.join(x.values.astype(str)), axis=1)
         documents = df['combined'].tolist()
         embeddings = [get_embedding(doc, engine = "text-embedding-3-small") for doc in documents]
