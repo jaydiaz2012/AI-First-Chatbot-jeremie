@@ -23,10 +23,10 @@ warnings.filterwarnings("ignore")
 
 def extract_geolocation(response):
     """
-    Extract geolocation details from a RouteGuru response and convert them into a dictionary.
+    Extract geolocation details from a RouteX response and convert them into a dictionary.
 
     Parameters:
-    response (str): The RouteGuru response containing geolocation details.
+    response (str): The RouteX response containing geolocation details.
 
     Returns:
     dict: A dictionary with 'origin', 'destination', and 'waypoints' as keys.
