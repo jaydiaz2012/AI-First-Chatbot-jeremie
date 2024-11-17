@@ -1,0 +1,21 @@
+Parcel ID,Customer Name,Area,Neighborhood,Address,Nearest Landmark,Latitude,Longitude,Customer Preferences,Delivery Time Window Start,Delivery Time Window End,Weather Impact,Delivery Priority,Expected Delivery Time,Expected Delivery Duration (hours)
+PCL001,Customer_1,South,Neighborhood_7,"171 Boulevard, South",Landmark_3,27.407712,-131.365723,High Value,2024-11-18 02:59:22,2024-11-18 05:59:22,Clear,Low,2024-11-18 03:53:32,0.9
+PCL002,Customer_2,East,Neighborhood_7,"705 Boulevard, East",Landmark_2,47.397044,-73.092064,High Value,2024-11-18 07:59:22,2024-11-18 09:59:22,Snowy,Critical,2024-11-18 09:54:15,1.91
+PCL003,Customer_3,West,Neighborhood_5,"311 Boulevard, West",Landmark_5,-18.795488,-145.752111,Handle with Care,2024-11-18 03:59:22,2024-11-18 05:59:22,Stormy,Low,2024-11-18 05:06:55,1.13
+PCL004,Customer_4,East,Neighborhood_3,"762 Avenue, East",Landmark_1,13.678277,-101.455843,High Value,2024-11-18 06:59:22,2024-11-18 09:59:22,Stormy,Critical,2024-11-18 08:15:48,1.27
+PCL005,Customer_5,South,Neighborhood_5,"598 Boulevard, South",Landmark_4,-78.074582,-103.809679,Handle with Care,2024-11-18 06:59:22,2024-11-18 07:59:22,Rainy,Critical,2024-11-18 08:27:51,1.47
+PCL006,Customer_6,South,Neighborhood_7,"115 Boulevard, South",Landmark_1,86.450732,-171.469213,Handle with Care,2024-11-18 09:59:22,2024-11-18 13:59:22,Snowy,Medium,2024-11-18 10:43:13,0.73
+PCL007,Customer_7,South,Neighborhood_9,"637 Street, South",Landmark_1,-47.013162,-79.355647,Perishable,2024-11-18 06:59:22,2024-11-18 09:59:22,Snowy,Medium,2024-11-18 08:46:17,1.78
+PCL008,Customer_8,West,Neighborhood_4,"860 Boulevard, West",Landmark_2,40.71013,-60.670956,Fragile,2024-11-17 18:59:22,2024-11-17 20:59:22,Foggy,Medium,2024-11-17 20:55:54,1.94
+PCL009,Customer_9,South,Neighborhood_8,"971 Boulevard, South",Landmark_1,81.528937,-83.294221,Perishable,2024-11-18 11:59:22,2024-11-18 12:59:22,Foggy,Low,2024-11-18 12:31:46,0.54
+PCL010,Customer_10,North,Neighborhood_6,"813 Boulevard, North",Landmark_1,66.662186,-71.519735,Fragile,2024-11-18 05:59:22,2024-11-18 07:59:22,Stormy,High,2024-11-18 06:36:42,0.62
+PCL011,Customer_11,South,Neighborhood_1,"646 Avenue, South",Landmark_3,78.408735,-179.641387,Fragile,2024-11-18 09:59:22,2024-11-18 10:59:22,Foggy,High,2024-11-18 11:25:21,1.43
+PCL012,Customer_12,East,Neighborhood_4,"242 Boulevard, East",Landmark_4,0.830737,22.730993,Fragile,2024-11-18 05:59:22,2024-11-18 07:59:22,Foggy,Critical,2024-11-18 07:05:09,1.1
+PCL013,Customer_13,East,Neighborhood_4,"663 Street, East",Landmark_5,-10.323953,-116.259876,Regular,2024-11-18 07:59:22,2024-11-18 09:59:22,Snowy,High,2024-11-18 08:30:36,0.52
+PCL014,Customer_14,East,Neighborhood_2,"385 Avenue, East",Landmark_1,-43.815168,-30.968577,High Value,2024-11-18 03:59:22,2024-11-18 06:59:22,Foggy,Medium,2024-11-18 05:28:06,1.48
+PCL015,Customer_15,South,Neighborhood_2,"486 Boulevard, South",Landmark_2,39.762133,45.710305,High Value,2024-11-17 20:59:22,2024-11-17 21:59:22,Rainy,Critical,2024-11-17 22:57:13,1.96
+PCL016,Customer_16,East,Neighborhood_8,"619 Avenue, East",Landmark_2,-67.748986,37.922306,Regular,2024-11-18 03:59:22,2024-11-18 06:59:22,Stormy,Medium,2024-11-18 05:50:33,1.85
+PCL017,Customer_17,East,Neighborhood_9,"337 Street, East",Landmark_4,69.791673,-166.990519,Handle with Care,2024-11-17 20:59:22,2024-11-18 00:59:22,Stormy,Low,2024-11-17 21:42:01,0.71
+PCL018,Customer_18,North,Neighborhood_6,"992 Street, North",Landmark_4,57.908934,-166.551022,Handle with Care,2024-11-17 20:59:22,2024-11-17 21:59:22,Rainy,Medium,2024-11-17 22:01:29,1.04
+PCL019,Customer_19,East,Neighborhood_2,"983 Avenue, East",Landmark_3,87.145535,-154.191378,Handle with Care,2024-11-18 07:59:22,2024-11-18 10:59:22,Rainy,Medium,2024-11-18 09:35:53,1.61
+PCL020,Customer_20,South,Neighborhood_8,"226 Boulevard, South",Landmark_5,50.019365,-111.884299,Perishable,2024-11-17 17:59:22,2024-11-17 20:59:22,Clear,Medium,2024-11-17 19:06:41,1.12
