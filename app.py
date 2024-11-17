@@ -79,8 +79,8 @@ else:
 
         struct = []
         if st.button("Recommend Route!"):
-            structured_prompt = rg.get_structured_prompt(deliveries=deliveries, origin=origin_location)
-            resp = rg.route_recommendation(structured_prompt)
+            structured_prompt = rx.get_structured_prompt(deliveries=deliveries, origin=origin_location)
+            resp = rx.route_recommendation(structured_prompt)
             st.session_state.messages.append({"role": "assistant", "content": resp["response"]})
             struct = resp["struct"]
 
