@@ -55,13 +55,12 @@ else:
         st.text("Connect with me via Linkedin : https://www.linkedin.com/in/jandiaz/")
         st.text("Conncet with me via Kaggle: https://www.kaggle.com/jeremiediaz1/")
         st.write("\n")
+    
+    elif page == "RouteGuru":
+        st.header("RouteGuru: Your Delivery Route Optimization Assistant")
 
-    elif page == "RouteX":
-        st.title('Ask RouteX!')
-        st.header('RouteX: Your Delivery Route Expert!')
-        
         deliveries = []
-        
+
         if "click_count" not in st.session_state:
             st.session_state.click_count = 1
 
@@ -77,11 +76,11 @@ else:
             deliveries.append(f"{delivery_address} ({delivery_time_window})")
             
         origin_location = st.text_input("Enter the origin location:")
-    
+
         struct = []
         if st.button("Recommend Route!"):
-            structured_prompt = rx.get_structured_prompt(deliveries=deliveries, origin=origin_location)
-            resp = rx.route_recommendation(structured_prompt)
+            structured_prompt = rg.get_structured_prompt(deliveries=deliveries, origin=origin_location)
+            resp = rg.route_recommendation(structured_prompt)
             st.session_state.messages.append({"role": "assistant", "content": resp["response"]})
             struct = resp["struct"]
 
@@ -99,10 +98,7 @@ else:
 
             # Display the iframe in the Streamlit app
             components.html(iframe_html, height=600)
-            
-        if "messages" not in st.session_state:
-            st.session_state.messages = []
-
+       
         # Display chat messages from history on app rerun
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
