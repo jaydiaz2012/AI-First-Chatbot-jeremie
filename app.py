@@ -17,39 +17,11 @@ import faiss
 import streamlit as st
 import warnings
 from utils.google_map import GoogleMAP
+from utils.util import extract_geolocation
 from utils.routex import Route_X
 from streamlit_option_menu import option_menu
 from streamlit_extras.mention import mention
 warnings.filterwarnings("ignore")
-
-def extract_geolocation(response):
-    """
-    Extract geolocation details from a RouteX response and convert them into a dictionary.
-
-    Parameters:
-    response (str): The RouteX response containing geolocation details.
-
-    Returns:
-    dict: A dictionary with 'origin', 'destination', and 'waypoints' as keys.
-    """
-    # Regex patterns to capture geolocation data
-    origin_pattern = r"Origin:\s*([\d.]+),([\d.]+)"
-    destination_pattern = r"Destination:\s*([\d.]+),([\d.]+)"
-    waypoints_pattern = r"Waypoints:\s*((?:[\d.]+,[\d.]+\s*\|\s*)*[\d.]+,[\d.]+)"
-
-    # Extract origin, destination, and waypoints
-    origin_match = re.search(origin_pattern, response)
-    destination_match = re.search(destination_pattern, response)
-    waypoints_match = re.search(waypoints_pattern, response)
-
-    # Convert matches to dictionary format
-    geolocation_data = {
-        "origin": f"{origin_match.group(1)},{origin_match.group(2)}" if origin_match else None,
-        "destination": f"{destination_match.group(1)},{destination_match.group(2)}" if destination_match else None,
-        "waypoints": waypoints_match.group(1).replace(" ", "").split("|") if waypoints_match else []
-    }
-
-    return geolocation_data
 
 st.set_page_config(page_title="RouteX, the Risk Assessor for Transport Routes", page_icon="📍", layout="wide")
 # Sidebar for navigation and API key input
